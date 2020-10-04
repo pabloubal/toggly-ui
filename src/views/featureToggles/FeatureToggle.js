@@ -43,7 +43,7 @@ function FeatureToogle(props) {
   }
 
   function handleNameChange(event) {
-    const newToggle = Object.assign({}, toggle);
+    const newToggle = {...toggle};
     newToggle.name = event.target.value;
     setToggle(newToggle)
   }
@@ -100,7 +100,7 @@ function FeatureToogle(props) {
             <Link to={FEAT_TOGGLE_URL}>
               <Button variant="contained" color="default">Cancel</Button>
             </Link>
-            {isEdit() ? <Button variant="contained" color="secondary" className="saveButton" onClick={() => handleDelete()}>Delete</Button> : ""}
+            {isEdit() ? <Button variant="contained" color="secondary" className="saveButton" onClick={handleDelete}>Delete</Button> : ""}
             <Button variant="contained" color="primary" type="submit" className="saveButton">Save</Button>
 
           </div>
