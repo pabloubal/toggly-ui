@@ -4,12 +4,10 @@
 
 .logo-container {
   padding: 20px;
-  margin-left: 32px;
-  margin-right: 32px;
 }
 
 .logo-title {
-  font-family: sans-serif;
+  font-family: RedHatText, Overpass, overpass, helvetica, arial, sans-serif;
   font-style: normal;
   font-weight: bold;
   font-size: 25px;
@@ -18,4 +16,9 @@
   color: white;
   opacity: 1;
   margin-left: 12px;
+}
+
+.logo-img {
+  height: 50px;
+  margin: 10px;
 }

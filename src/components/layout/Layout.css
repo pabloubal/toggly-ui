@@ -2,6 +2,8 @@
   display: flex;
 }
 .layout-main {
-  padding: 10px 20px 10px 20px;
   flex-grow: 1;
+}
+.main-container {
+  margin: 50px;
 }

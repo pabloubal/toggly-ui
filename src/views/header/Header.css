@@ -6,13 +6,15 @@
   border: '1px solid #DFE0EB';
 }
 .container {
+  background-color: #212427;
+  padding: 20px;
   height: 40px;
   margin-bottom: 50px;
 }
 .cursorPointer {
   cursor: pointer
 }
-.name {
+.user-name {
   font-family: sans-serif;
   font-style: normal;
   font-weight: 600;
@@ -20,6 +22,7 @@
   line-height: 20px;
   text-align: right;
   letter-spacing: 0.2px;
+  color: #DFE0EB;
 }
 .separator {
   border-left: 1px solid #DFE0EB;
@@ -28,13 +31,14 @@
   height: 32px;
   width: 2px;
 }
-.title {
+.header-title {
   font-family: sans-serif;
   font-style: normal;
   font-weight: bold;
   font-size: 24px;
   line-height: 30px;
   letter-spacing: 0.3px;
+  color: #DFE0EB;
 }
 .iconStyles {
   cursor: pointer;
@@ -49,7 +53,7 @@
     margin-left: 12px;
     margin-right: 12px;
   }
-  .title {
+  .header-title {
     margin-left: 36px;
   }
   .iconStyles {
@@ -58,7 +62,7 @@
 }
 
 @media (max-width: 468px) {
-  .title {
+  .header-title {
     font-size: 20;
   }
 }

@@ -9,10 +9,12 @@ function Layout(props) {
   return (
     <div>
       <div className="layout-container">
-        <Sidebar history={props.history} onChange={(page) => page && setSelectedPage(page.name)}/>
+        <Sidebar history={props.history} onChange={(page) => page && setSelectedPage(page.name)} />
         <div className="layout-main">
-          <Header title={selectedPage}/>
-          {props.children}
+          <Header title={selectedPage} />
+          <div className="main-container">
+            {props.children}
+          </div>
         </div>
       </div>
     </div>

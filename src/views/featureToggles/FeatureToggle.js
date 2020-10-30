@@ -1,5 +1,4 @@
 import { Button, Divider, List, ListItem, ListItemSecondaryAction, ListItemText, Paper, Switch, TextField, withStyles } from '@material-ui/core';
-import { green } from '@material-ui/core/colors';
 import React, { useEffect, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import FeatureToggleEntity from '../../entities/FeatureToggleEntity';
@@ -81,12 +80,12 @@ function FeatureToogle(props) {
               <ListItem className="listSwitch">
                 <ListItemText primary="Feature enabled" />
                 <ListItemSecondaryAction>
-                  <GreenSwitch
+                  <BlueSwitch
                     name="featEnabled"
                     edge="end"
                     onChange={() => handleToggle()}
                     checked={toggle.enabled}
-                    color={green[500]}
+                    color="#4467fd"
                   />
                 </ListItemSecondaryAction>
               </ListItem>
@@ -114,13 +113,13 @@ function FeatureToogle(props) {
   );
 }
 
-const GreenSwitch = withStyles({
+const BlueSwitch = withStyles({
   switchBase: {
     '&$checked': {
-      color: green[500],
+      color: "#4467fd",
     },
     '&$checked + $track': {
-      backgroundColor: green[500],
+      backgroundColor: "#4467fd",
     },
   },
   checked: {},
