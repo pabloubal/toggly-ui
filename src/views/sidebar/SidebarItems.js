@@ -5,12 +5,8 @@ const SidebarItems = [
         route: '/feature-toggles',
     },
     {
-        name: "Tracing",
-        route: '/tracing'
-    },
-    {
-        name: "Logs",
-        route: '/logs'
+        name: "Credits",
+        route: '/credits',
     }
 ];
 

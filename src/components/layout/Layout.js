@@ -4,7 +4,7 @@ import Sidebar from "../../views/sidebar/Sidebar";
 import './Layout.css';
 
 function Layout(props) {
-  const [selectedPage, setSelectedPage] = useState("Default");
+  const [selectedPage, setSelectedPage] = useState("404 - Page not found");
 
   return (
     <div>

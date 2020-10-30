@@ -20,26 +20,32 @@ const FeatureToggleService = {
   },
 
   create(toggle) {
-    return new Promise((res) => {
-      axios.post(`${BASE_URL}/features`, toggle).then((response) => {
+    return new Promise((res, rej) => {
+      axios.post(`${BASE_URL}/features`, toggle)
+      .then((response) => {
         res(response.data)
-      });
+      })
+      .catch((error) => rej(error));
     })
   },
 
   update(toggle) {
-    return new Promise((res) => {
-      axios.put(`${BASE_URL}/features/${toggle.id}`, toggle).then((response) => {
+    return new Promise((res, rej) => {
+      axios.put(`${BASE_URL}/features/${toggle.id}`, toggle)
+      .then((response) => {
         res(response.data)
-      });
+      })
+      .catch((error) => rej(error));;
     })
   },
 
   delete(toggle) {
     return new Promise((res, rej) => {
-      axios.delete(`${BASE_URL}/features/${toggle.id}`).then((response) => {
+      axios.delete(`${BASE_URL}/features/${toggle.id}`)
+      .then((response) => {
         res(response.data)
-      }).catch(error => rej(error));
+      })
+      .catch(error => rej(error));
     })
   },
   
