@@ -15,7 +15,7 @@ function Sidebar(props) {
     function changeActiveIndex(newIndex) {
         localStorage.setItem("lastActiveIndex", newIndex);
         setActiveIndex(newIndex);
-        props.onChange(SidebarItems[newIndex]);
+        props.onChange(SidebarItems()[newIndex]);
     }
 
     function getPath(path) {
@@ -26,7 +26,7 @@ function Sidebar(props) {
     }
 
     useEffect(() => {
-        const activeItemIdx = SidebarItems.findIndex(item => getPath(location.pathname).indexOf(getPath(item.route))>=0)
+        const activeItemIdx = SidebarItems().findIndex(item => getPath(location.pathname).indexOf(getPath(item.route))>=0)
         changeActiveIndex(activeItemIdx);
 
     }, [location])
@@ -36,7 +36,7 @@ function Sidebar(props) {
             <div className="sidebar-fixed">
                 <Logo/>
                 {
-                    SidebarItems.map((item, idx) => {
+                    SidebarItems().map((item, idx) => {
                         return (
                             <Link to={item.route} key={idx}>
                                 <SidebarItem key={item.name} active={idx === activeIndex}>

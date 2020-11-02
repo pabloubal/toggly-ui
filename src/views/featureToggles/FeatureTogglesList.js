@@ -4,13 +4,13 @@ import React, { useEffect, useState } from 'react';
 import { Route } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { urls } from '../../components/Router';
 import FeatureToggleService from '../../services/feature-toggle-service/FeatureToggleService';
 import FeatureTogglesListItem from './FeatureTogglesListItem';
 
 
 
 function FeatureTooglesList(props) {
-  const FEAT_TOGGLE_URL = "/feature-toggles"
   const [toggles, setToggles] = useState([]);
   const [filters, setFilters] = useState({
     name: ''
@@ -86,7 +86,7 @@ function FeatureTooglesList(props) {
       <ToastContainer />
 
       <Route render={({ history }) => (
-        <Button variant="contained" color="primary" component="span" onClick={() => { history.push(`${FEAT_TOGGLE_URL}/add`) }}>
+        <Button variant="contained" color="primary" component="span" onClick={() => { history.push(urls.featureTogglesAddURL) }}>
           New
         </Button>
       )} />

@@ -1,6 +1,6 @@
 {
-  "name": "kubetoggle-web",
-  "version": "0.1.0",
+  "name": "toggly-ui",
+  "version": "0.0.1",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.0",
@@ -21,8 +21,11 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "buildK8S": "PUBLIC_URL=/ui react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dockerBuild": "./dockerBuild.sh",
+    "dockerPush": "./dockerPush.sh"
   },
   "eslintConfig": {
     "extends": "react-app"

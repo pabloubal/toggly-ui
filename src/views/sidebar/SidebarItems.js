@@ -1,13 +1,16 @@
+import { urls } from "../../components/Router";
 
-const SidebarItems = [
-    {
-        name: "Feature Toggles",
-        route: '/feature-toggles',
-    },
-    {
-        name: "Credits",
-        route: '/credits',
-    }
-];
+function SidebarItems() {
+    return [
+        {
+            name: "Feature Toggles",
+            route: urls.featureTogglesURL,
+        },
+        {
+            name: "About",
+            route: urls.aboutURL,
+        }
+    ];
+}
 
 export default SidebarItems;
