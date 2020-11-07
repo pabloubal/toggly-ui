@@ -8,7 +8,7 @@ import { urls } from '../../components/Router';
 
 const FeatureTogglesListItem = (props) => {
   return (
-    <ListItem key={props.item.id} button component={Link} to={`${urls.featureTogglesURL}/${props.item.id}`}>
+    <ListItem button component={Link} to={`${urls.featureTogglesURL}/${props.item.id}`}>
       <ListItemText id={props.item.id} primary={props.item.name} />
       <ListItemSecondaryAction>
         {props.item.enabled

@@ -1,20 +1,28 @@
 import { Button, Divider, List, ListItem, ListItemSecondaryAction, ListItemText, Paper, Switch, TextField, withStyles } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, Redirect, withRouter } from 'react-router-dom';
 import { urls } from '../../components/Router';
 import FeatureToggleEntity from '../../entities/FeatureToggleEntity';
+import OperationStatusEntity from '../../entities/OperationStatusEntity';
 import FeatureToggleService from '../../services/feature-toggle-service/FeatureToggleService';
+import SessionStorageService from '../../services/session-storage-service/SessionStorageService';
 import './FeatureToggle.css';
 
 
 function FeatureToogle(props) {
   const [toggle, setToggle] = useState(new FeatureToggleEntity(0, "", false));
+  const [redirect, setRedirect] = useState(false);
   const toggleId = props.match.params.toggleId;
+  const OP_CREATE = "create"
+  const OP_EDIT = "edit"
+  const OP_DELETE = "delete"
 
   function updateToggle() {
-    FeatureToggleService.findOne(toggleId)
-      .then(response => setToggle(response))
-      .catch(error => console.log(error))
+    if(toggleId!=null){
+      FeatureToggleService.findOne(toggleId)
+        .then(response => setToggle(response))
+        .catch(error => console.log(error))
+    }
   }
 
   useEffect(() => {
@@ -25,14 +33,16 @@ function FeatureToogle(props) {
     event.preventDefault()
     isEdit()
       ? FeatureToggleService.update(toggle)
-        .then(response =>
-          props.history.push(`${urls.featureTogglesURL}?featName=${toggle.name}&operation=edit&success=true`)
-        )
-        .catch(error => props.history.push(`${urls.featureTogglesURL}?featName=${toggle.name}&operation=edit&success=false`))
+        .then(response => updateRedirect(new OperationStatusEntity(urls.featureTogglesURL, toggle.name, OP_EDIT, true)))
+        .catch(error => updateRedirect(new OperationStatusEntity(urls.featureTogglesURL, toggle.name, OP_EDIT, false, error)))
       : FeatureToggleService.create(toggle)
-        .then(response => props.history.push(`${urls.featureTogglesURL}?featName=${toggle.name}&operation=create&success=true`))
-        .catch(error => props.history.push(`${urls.featureTogglesURL}?featName=${toggle.name}&operation=create&success=false`));
+        .then(response => updateRedirect(new OperationStatusEntity(urls.featureTogglesURL, toggle.name, OP_CREATE, true)))
+        .catch(error => updateRedirect(new OperationStatusEntity(urls.featureTogglesURL, toggle.name, OP_CREATE, false, error)));
+  }
 
+  function updateRedirect(status) {
+    SessionStorageService.push(status);
+    setRedirect(true)
   }
 
   function handleToggle() {
@@ -49,8 +59,8 @@ function FeatureToogle(props) {
 
   function handleDelete() {
     FeatureToggleService.delete(toggle)
-      .then(response => props.history.push(`${urls.featureTogglesURL}?featName=${toggle.name}&operation=delete&success=true`))
-      .catch(error => props.history.push(`${urls.featureTogglesURL}?featName=${toggle.name}&operation=delete&success=false`))
+    .then(response => updateRedirect(new OperationStatusEntity(urls.featureTogglesURL, toggle.name, OP_DELETE, true)))
+    .catch(error => updateRedirect(new OperationStatusEntity(urls.featureTogglesURL, toggle.name, OP_DELETE, false, error)))
   }
 
   function isEdit() {
@@ -59,8 +69,7 @@ function FeatureToogle(props) {
 
   return (
     <div className="toggle-container">
-      
-
+      {redirect ? <Redirect to={urls.featureTogglesURL} /> : null}
       <Paper className="paper">
         <h3 className="title">{isEdit() ? "Edit " + toggle.name : "New Feature Toggle"}</h3>
 
@@ -85,7 +94,6 @@ function FeatureToogle(props) {
                     edge="end"
                     onChange={() => handleToggle()}
                     checked={toggle.enabled}
-                    color="#4467fd"
                   />
                 </ListItemSecondaryAction>
               </ListItem>

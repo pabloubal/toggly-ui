@@ -1,11 +1,12 @@
 import { Button, List, TextField } from '@material-ui/core';
-import qs from 'qs';
 import React, { useEffect, useState } from 'react';
 import { Route } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { urls } from '../../components/Router';
+import OperationStatusEntity from '../../entities/OperationStatusEntity';
 import FeatureToggleService from '../../services/feature-toggle-service/FeatureToggleService';
+import SessionStorageService from '../../services/session-storage-service/SessionStorageService';
 import FeatureTogglesListItem from './FeatureTogglesListItem';
 
 
@@ -23,31 +24,27 @@ function FeatureTooglesList(props) {
   }
 
   useEffect(() => {
-    console.log("get logs")
     updateTogglesList();
     checkToast();
   }, [])
 
   function checkToast() {
-    let toaster = {}
-    toaster.name = qs.parse(props.location.search, { ignoreQueryPrefix: true }).featName
-    if (toaster.name) {
-      toaster.operation = qs.parse(props.location.search, { ignoreQueryPrefix: true }).operation
-      toaster.success = (qs.parse(props.location.search, { ignoreQueryPrefix: true }).success === 'true')
-      toaster.message = `${toaster.success
-        ? toaster.name + (toaster.operation === 'edit'
+    const toastInfo = OperationStatusEntity.Of(SessionStorageService.pop());
+    if (toastInfo!==undefined) {
+      let message = `${toastInfo.isSuccessful()
+        ? toastInfo.featureName + (toastInfo.operationType === 'edit'
           ? " saved correctly"
-          : toaster.operation === 'create'
+          : toastInfo.operationType === 'create'
             ? " created successfully"
             : " has been deleted")
-        : toaster.operation === 'edit'
-          ? "An error occured when saving " + toaster.name
-          : toaster.operation === 'create'
-            ? "An error occured when creating " + toaster.name
-            : "An error occured when deleting " + toaster.name
+        : toastInfo.operationType === 'edit'
+          ? "An error occured when saving " + toastInfo.featureName
+          : toastInfo.operationType === 'create'
+            ? "An error occured when creating " + toastInfo.featureName
+            : "An error occured when deleting " + toastInfo.featureName
         }`
-      toaster.success
-        ? toast.success(`${toaster.message}`, {
+      toastInfo.isSuccessful()
+        ? toast.success(`${message}`, {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -56,7 +53,7 @@ function FeatureTooglesList(props) {
           draggable: true,
           progress: undefined,
         })
-        : toast.error(`${toaster.message}`, {
+        : toast.error(`${message}`, {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -100,14 +97,13 @@ function FeatureTooglesList(props) {
             onChange={filterByName}
             margin="normal"
           />
-          {/* <Button variant="contained" color="secondary" type="submit" className="saveButton">Clear</Button> */}
         </div>
       </form>
 
       <List className="featuresList">
         {toggles.length 
           ? toggles.filter(t => t.name.toLowerCase().indexOf(filters.name.toLowerCase())>=0).map(t => 
-              <FeatureTogglesListItem item={t} handleToggle={(i) => handleToggle(i)}></FeatureTogglesListItem>
+              <FeatureTogglesListItem key={t.id} item={t} handleToggle={(i) => handleToggle(i)}></FeatureTogglesListItem>
             ) 
           : ""}
       </List>
