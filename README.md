@@ -12,6 +12,6 @@ Manage and visualize feature toggles
 The app was built with [create-react-app](https://github.com/facebookincubator/create-react-app).
 
 
-[docker-img]: https://img.shields.io/docker/v/pabloubal/toggly-ui?label=docker-hub&style=plastic
-[docker-img-size]: https://img.shields.io/docker/image-size/pabloubal/toggly-ui?label=docker-image-size&style=plastic
-[docker-hub]: https://hub.docker.com/r/pabloubal/toggly-ui
+[docker-img]: https://img.shields.io/docker/v/togglyft/toggly-ui?label=docker-hub&style=plastic
+[docker-img-size]: https://img.shields.io/docker/image-size/togglyft/toggly-ui?label=docker-image-size&style=plastic
+[docker-hub]: https://hub.docker.com/r/togglyft/toggly-ui
